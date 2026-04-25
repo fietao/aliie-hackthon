@@ -1,3 +1,4 @@
+// we use ai to generate icons for each category, so we can easily identify them at a glance
 // icons for each category
 var categoryIcons = {
     "frozen goods": "❄️",
@@ -25,6 +26,7 @@ for (var i = 0; i < items.length; i++) {
     if (grouped[cat] === undefined) {
         grouped[cat] = []
     }
+    // what is three === in js? --- IGNORE ---
 
     grouped[cat].push(item.name)
 }

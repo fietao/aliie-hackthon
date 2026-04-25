@@ -1,1 +1,8 @@
 /venv
+/.git
+/.github
+/.vscode    
+/.idea
+/.DS_Store
+/venv/
+/.claude/
