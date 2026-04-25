@@ -1,17 +1,17 @@
 from flask import Flask, request, jsonify, render_template
 from ai import categorize
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder="html")
 
 # home page
 @app.route("/")
 def home():
-    return render_template("index.html")
+    return render_template("firspage.html")
 
 # results page
 @app.route("/results")
 def results():
-    return render_template("results.html")
+    return render_template("result.html")
 
 # this route takes an item and returns its category
 @app.route("/add", methods=["POST"])
