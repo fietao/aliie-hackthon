@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listaria</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- cart logo -->
+        <div class="cart-icon">
+            <img src="/static/cart.png" alt="cart">
+        </div>
+
+        <!-- title -->
+        <h1>Create new<br>shopping list</h1>
+
+        <!-- input row -->
+        <div class="input-row">
+            <input id="item-input" type="text" placeholder="type anything...">
+            <button class="add-btn" onclick="addItem()">Add item +</button>
+        </div>
+
+        <!-- list of items will show up here -->
+        <div id="list-section"></div>
+
+        <!-- categorize button -->
+        <button class="categorize-btn" onclick="categorizeAll()">CATEGORIZE</button>
+
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
