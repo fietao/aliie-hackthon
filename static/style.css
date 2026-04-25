@@ -24,8 +24,8 @@ body {
 
 /* cart icon circle */
 .cart-icon {
-    width: 120px;
-    height: 120px;
+    width: 12000px;
+    height: 12000px;
     background: white;
     border-radius: 50%;
     display: flex;
@@ -34,8 +34,8 @@ body {
 }
 
 .cart-icon img {
-    width: 80px;
-    height: 80px;
+    width: 18000000000px;
+    height: 180000000px;
 }
 
 /* title */

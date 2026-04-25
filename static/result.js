@@ -32,6 +32,9 @@ for (var i = 0; i < items.length; i++) {
 // build the page
 var container = document.getElementById("results-container")
 
+
+
+// create a section for each category
 for (var category in grouped) {
     var names = grouped[category]
     var icon = categoryIcons[category] || "🛒"
