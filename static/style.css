@@ -1,0 +1,190 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #c8d8d8;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.container {
+    width: 100%;
+    max-width: 400px;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+/* cart icon circle */
+.cart-icon {
+    width: 120px;
+    height: 120px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cart-icon img {
+    width: 80px;
+    height: 80px;
+}
+
+/* title */
+h1 {
+    font-size: 26px;
+    font-weight: bold;
+    color: #1a3a4a;
+    text-align: center;
+}
+
+/* input + add button */
+.input-row {
+    width: 100%;
+    display: flex;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.input-row input {
+    flex: 1;
+    padding: 14px 16px;
+    border: none;
+    outline: none;
+    font-size: 15px;
+}
+
+.add-btn {
+    background-color: #2d6b7f;
+    color: white;
+    border: none;
+    padding: 14px 14px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* each item in the list */
+#list-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.item {
+    background: white;
+    border-radius: 12px;
+    padding: 14px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+.item .name {
+    font-size: 16px;
+    font-weight: bold;
+    color: #1a3a4a;
+}
+
+.item .category {
+    font-size: 12px;
+    font-weight: bold;
+    padding: 4px 10px;
+    border-radius: 20px;
+    color: #1a3a4a;
+}
+
+.item .remove-btn {
+    background: none;
+    border: none;
+    color: #aaa;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.item .remove-btn:hover {
+    color: red;
+}
+
+/* big green button */
+.categorize-btn {
+    width: 100%;
+    padding: 18px;
+    background-color: #8bc34a;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    cursor: pointer;
+}
+
+/* results page */
+.results-header {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.home-btn {
+    background-color: #2d6b7f;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.category-section {
+    width: 100%;
+    margin-bottom: 16px;
+}
+
+.category-header {
+    background-color: #a0e84e;
+    border-radius: 25px;
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.cat-icon {
+    font-size: 22px;
+}
+
+.cat-name {
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+}
+
+.category-items {
+    background: white;
+    border-radius: 0 0 12px 12px;
+    padding: 10px 18px;
+}
+
+.cat-item {
+    padding: 8px 0;
+    font-size: 15px;
+    color: #1a3a4a;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.cat-item:last-child {
+    border-bottom: none;
+}
