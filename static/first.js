@@ -1,4 +1,5 @@
-// colors for each category
+
+// // colors for each category
 var categoryColors = {
     "frozen goods": "#A8D8EA",
     "dairy": "#FFF3B0",
@@ -49,7 +50,7 @@ async function categorizeAll() {
 
     for (var i = 0; i < items.length; i++) {
         var name = items[i].querySelector(".name").textContent
-
+        // send item to server
         var response = await fetch("/add", {
             method: "POST",
             headers: { "Content-Type": "application/json" },

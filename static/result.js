@@ -21,7 +21,7 @@ var grouped = {}
 for (var i = 0; i < items.length; i++) {
     var item = items[i]
     var cat = item.category.toLowerCase()
-
+// if category doesn't exist in grouped, create it
     if (grouped[cat] === undefined) {
         grouped[cat] = []
     }
