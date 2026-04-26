@@ -1,4 +1,5 @@
 import ollama
+import os
 
 # list of all categories the AI can choose from
 categories = [
@@ -14,10 +15,12 @@ categories = [
     "miscellaneous"
 ]
 
+OLLAMA_MODEL = os.environ.get("OLLAMA_MODEL", "llama3:latest")
+
 def categorize(item):
     # ask ollama to categorize the item
     response = ollama.chat(
-        model="llama3:latest",
+        model=OLLAMA_MODEL,
         messages=[
             {
                 "role": "user",

@@ -39,23 +39,40 @@ var container = document.getElementById("results-container")
 // create a section for each category
 for (var category in grouped) {
     var names = grouped[category]
+
+    // get icon and label for category
     var icon = categoryIcons[category] || "🛒"
     var label = category.charAt(0).toUpperCase() + category.slice(1)
 
-    // build the items list html
-    var itemsHtml = ""
-    for (var j = 0; j < names.length; j++) {
-        itemsHtml += '<div class="cat-item">' + names[j] + '</div>'
-    }
-
-    // build the section html
+    // build section safely using DOM (no innerHTML with user data)
     var section = document.createElement("div")
     section.className = "category-section"
-    section.innerHTML = '<div class="category-header">' +
-                            '<span class="cat-icon">' + icon + '</span>' +
-                            '<span class="cat-name">' + label + '</span>' +
-                        '</div>' +
-                        '<div class="category-items">' + itemsHtml + '</div>'
 
+    var header = document.createElement("div")
+    header.className = "category-header"
+
+    var iconSpan = document.createElement("span")
+    iconSpan.className = "cat-icon"
+    iconSpan.textContent = icon  // emojis are safe but use textContent anyway
+
+    var nameSpan = document.createElement("span")
+    nameSpan.className = "cat-name"
+    nameSpan.textContent = label  // safe: no HTML injection
+
+    header.appendChild(iconSpan)
+    header.appendChild(nameSpan)
+
+    var itemsDiv = document.createElement("div")
+    itemsDiv.className = "category-items"
+
+    for (var j = 0; j < names.length; j++) {
+        var catItem = document.createElement("div")
+        catItem.className = "cat-item"
+        catItem.textContent = names[j]  // safe: user input never becomes HTML
+        itemsDiv.appendChild(catItem)
+    }
+
+    section.appendChild(header)
+    section.appendChild(itemsDiv)
     container.appendChild(section)
 }

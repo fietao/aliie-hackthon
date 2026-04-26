@@ -30,9 +30,22 @@ function renderItem(name) {
 
     var div = document.createElement("div")
     div.className = "item"
-    div.innerHTML = '<span class="name">' + name + '</span>' +
-                    '<span class="category"></span>' +
-                    '<button class="remove-btn" onclick="this.parentElement.remove()">✕</button>'
+
+    var nameSpan = document.createElement("span")
+    nameSpan.className = "name"
+    nameSpan.textContent = name  // safe: textContent never executes HTML
+
+    var categorySpan = document.createElement("span")
+    categorySpan.className = "category"
+
+    var removeBtn = document.createElement("button")
+    removeBtn.className = "remove-btn"
+    removeBtn.textContent = "✕"
+    removeBtn.addEventListener("click", function() { div.remove() })
+
+    div.appendChild(nameSpan)
+    div.appendChild(categorySpan)
+    div.appendChild(removeBtn)
 
     listSection.appendChild(div)
 }
