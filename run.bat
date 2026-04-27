@@ -1,9 +1,9 @@
 @echo off
-title GrocerySort
+title Listaria
 cls
 echo.
 echo ================================
-echo     GrocerySort
+echo     Listaria
 echo Smart Shopping, Organized Better
 echo ================================
 echo.

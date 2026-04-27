@@ -1,5 +1,5 @@
 """
-GrocerySort - Intelligent Categorization Engine
+Listaria - Intelligent Categorization Engine
 
 This module provides keyword-based categorization for grocery items.
 It matches items against predefined keywords to determine their category.

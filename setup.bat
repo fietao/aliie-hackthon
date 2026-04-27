@@ -1,8 +1,8 @@
 @echo off
-title GrocerySort Setup
+title Listaria Setup
 cls
 echo ================================
-echo   GrocerySort - Setup
+echo   Listaria - Setup
 echo ================================
 echo.
 

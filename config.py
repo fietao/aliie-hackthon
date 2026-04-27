@@ -1,4 +1,4 @@
-# GrocerySort Configuration File
+# Listaria Configuration File
 
 # Flask Configuration
 DEBUG = False

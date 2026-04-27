@@ -87,7 +87,7 @@ def add():
 # Health check endpoint
 @app.route("/health", methods=["GET"])
 def health_check():
-    return jsonify({"status": "healthy", "service": "GrocerySort"}), 200
+    return jsonify({"status": "healthy", "service": "Listaria"}), 200
 
 # Error handlers
 @app.errorhandler(404)
@@ -105,7 +105,7 @@ if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     host = os.environ.get("HOST", "0.0.0.0")
     
-    logger.info(f"Starting GrocerySort on {host}:{port}")
+    logger.info(f"Starting Listaria on {host}:{port}")
     logger.info(f"Debug mode: {debug_mode}")
     logger.info(f"Environment: {os.environ.get('FLASK_ENV', 'production')}")
     
