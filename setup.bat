@@ -1,7 +1,8 @@
 @echo off
-title Listaria Setup
+title GrocerySort Setup
+cls
 echo ================================
-echo   Listaria - Setup and Run
+echo   GrocerySort - Setup
 echo ================================
 echo.
 
@@ -12,12 +13,32 @@ if errorlevel 1 (
     echo Please download it from https://www.python.org/downloads/
     echo Make sure to check "Add Python to PATH" during install.
     pause
-    exit
+    exit /b 1
 )
 echo [OK] Python found.
 
 :: Install Python packages
 echo.
+echo Installing dependencies...
+pip install -r requirements.txt
+if errorlevel 1 (
+    echo [ERROR] Failed to install dependencies.
+    pause
+    exit /b 1
+)
+echo [OK] Dependencies installed.
+
+:: Done
+echo.
+echo ================================
+echo Setup Complete!
+echo ================================
+echo.
+echo To run the application:
+echo   run.bat
+echo.
+pause
+
 echo Installing required Python packages...
 pip install flask ollama
 if errorlevel 1 (

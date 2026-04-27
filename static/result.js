@@ -1,6 +1,7 @@
-// we use ai to generate icons for each category, so we can easily identify them at a glance
-// icons for each category
-var categoryIcons = {
+/**
+ * Icons for each category - helps users identify categories at a glance
+ */
+const categoryIcons = {
     "frozen goods": "❄️",
     "dairy": "🧀",
     "meat": "🥩",
@@ -11,68 +12,72 @@ var categoryIcons = {
     "snacks": "🍿",
     "laundry and cleaning supplies": "🧺",
     "miscellaneous": "📦"
-}
+};
 
-// get items from localStorage
-var items = JSON.parse(localStorage.getItem("listaria_items") || "[]")
+/**
+ * Get items from localStorage
+ */
+const items = JSON.parse(localStorage.getItem("listaria_items") || "[]");
 
-// group items by category
-var grouped = {}
+/**
+ * Group items by category
+ */
+const grouped = {};
 
-for (var i = 0; i < items.length; i++) {
-    var item = items[i]
-    var cat = item.category.toLowerCase()
-// if category doesn't exist in grouped, create it
+for (let i = 0; i < items.length; i++) {
+    const item = items[i];
+    const cat = item.category.toLowerCase();
+    
+    // If category doesn't exist in grouped, create it
     if (grouped[cat] === undefined) {
-        grouped[cat] = []
+        grouped[cat] = [];
     }
-    // what is three === in js? --- IGNORE ---
 
-    grouped[cat].push(item.name)
+    grouped[cat].push(item.name);
 }
 
-// build the page
-var container = document.getElementById("results-container")
+/**
+ * Build the results page
+ */
+const container = document.getElementById("results-container");
 
+// Create a section for each category
+for (const category in grouped) {
+    const names = grouped[category];
 
+    // Get icon and label for category
+    const icon = categoryIcons[category] || "🛒";
+    const label = category.charAt(0).toUpperCase() + category.slice(1);
 
-// create a section for each category
-for (var category in grouped) {
-    var names = grouped[category]
+    // Build section safely using DOM (no innerHTML with user data)
+    const section = document.createElement("div");
+    section.className = "category-section";
 
-    // get icon and label for category
-    var icon = categoryIcons[category] || "🛒"
-    var label = category.charAt(0).toUpperCase() + category.slice(1)
+    const header = document.createElement("div");
+    header.className = "category-header";
 
-    // build section safely using DOM (no innerHTML with user data)
-    var section = document.createElement("div")
-    section.className = "category-section"
+    const iconSpan = document.createElement("span");
+    iconSpan.className = "cat-icon";
+    iconSpan.textContent = icon;
 
-    var header = document.createElement("div")
-    header.className = "category-header"
+    const nameSpan = document.createElement("span");
+    nameSpan.className = "cat-name";
+    nameSpan.textContent = label;
 
-    var iconSpan = document.createElement("span")
-    iconSpan.className = "cat-icon"
-    iconSpan.textContent = icon  // emojis are safe but use textContent anyway
+    header.appendChild(iconSpan);
+    header.appendChild(nameSpan);
 
-    var nameSpan = document.createElement("span")
-    nameSpan.className = "cat-name"
-    nameSpan.textContent = label  // safe: no HTML injection
+    const itemsDiv = document.createElement("div");
+    itemsDiv.className = "category-items";
 
-    header.appendChild(iconSpan)
-    header.appendChild(nameSpan)
-
-    var itemsDiv = document.createElement("div")
-    itemsDiv.className = "category-items"
-
-    for (var j = 0; j < names.length; j++) {
-        var catItem = document.createElement("div")
-        catItem.className = "cat-item"
-        catItem.textContent = names[j]  // safe: user input never becomes HTML
-        itemsDiv.appendChild(catItem)
+    for (let j = 0; j < names.length; j++) {
+        const catItem = document.createElement("div");
+        catItem.className = "cat-item";
+        catItem.textContent = names[j];
+        itemsDiv.appendChild(catItem);
     }
 
-    section.appendChild(header)
-    section.appendChild(itemsDiv)
-    container.appendChild(section)
+    section.appendChild(header);
+    section.appendChild(itemsDiv);
+    container.appendChild(section);
 }

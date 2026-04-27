@@ -1,6 +1,6 @@
 
-// // colors for each category
-var categoryColors = {
+// Color map for each category (CSS gradient friendly)
+const categoryColors = {
     "frozen goods": "#A8D8EA",
     "dairy": "#FFF3B0",
     "meat": "#FFCDD2",
@@ -11,77 +11,134 @@ var categoryColors = {
     "snacks": "#CE93D8",
     "laundry and cleaning supplies": "#B3E5FC",
     "miscellaneous": "#CFD8DC"
-}
+};
 
-// add item to the list
+/**
+ * Add item to the shopping list
+ */
 function addItem() {
-    var input = document.getElementById("item-input")
-    var value = input.value.trim()
+    const input = document.getElementById("item-input");
+    const value = input.value.trim();
 
-    if (value === "") return
+    if (value === "") {
+        alert("Please enter an item name");
+        return;
+    }
 
-    renderItem(value)
-    input.value = ""
+    renderItem(value);
+    input.value = "";
+    input.focus();
 }
 
-// create an item card and add it to the page
+/**
+ * Create an item card and add it to the page
+ */
 function renderItem(name) {
-    var listSection = document.getElementById("list-section")
+    const listSection = document.getElementById("list-section");
 
-    var div = document.createElement("div")
-    div.className = "item"
+    const div = document.createElement("div");
+    div.className = "item";
 
-    var nameSpan = document.createElement("span")
-    nameSpan.className = "name"
-    nameSpan.textContent = name  // safe: textContent never executes HTML
+    const nameSpan = document.createElement("span");
+    nameSpan.className = "name";
+    nameSpan.textContent = name;
 
-    var categorySpan = document.createElement("span")
-    categorySpan.className = "category"
+    const categorySpan = document.createElement("span");
+    categorySpan.className = "category";
 
-    var removeBtn = document.createElement("button")
-    removeBtn.className = "remove-btn"
-    removeBtn.textContent = "✕"
-    removeBtn.addEventListener("click", function() { div.remove() })
+    const removeBtn = document.createElement("button");
+    removeBtn.className = "remove-btn";
+    removeBtn.textContent = "✕";
+    removeBtn.setAttribute("aria-label", `Remove ${name}`);
+    removeBtn.addEventListener("click", function() {
+        div.remove();
+        updateCategorizeButton();
+    });
 
-    div.appendChild(nameSpan)
-    div.appendChild(categorySpan)
-    div.appendChild(removeBtn)
+    div.appendChild(nameSpan);
+    div.appendChild(categorySpan);
+    div.appendChild(removeBtn);
 
-    listSection.appendChild(div)
+    listSection.appendChild(div);
+    updateCategorizeButton();
 }
 
-// send all items to the server and get categories back
+/**
+ * Update categorize button state
+ */
+function updateCategorizeButton() {
+    const btn = document.getElementById("categorize-btn");
+    const items = document.querySelectorAll(".item");
+    btn.disabled = items.length === 0;
+}
+
+/**
+ * Send all items to the server and categorize them
+ */
 async function categorizeAll() {
-    var items = document.querySelectorAll(".item")
+    const items = document.querySelectorAll(".item");
 
     if (items.length === 0) {
-        alert("Please add some items first!")
-        return
+        alert("Please add some items first!");
+        return;
     }
 
-    var results = []
+    const categorizeBtn = document.getElementById("categorize-btn");
+    categorizeBtn.disabled = true;
+    categorizeBtn.textContent = "CATEGORIZING...";
 
-    for (var i = 0; i < items.length; i++) {
-        var name = items[i].querySelector(".name").textContent
-        // send item to server
-        var response = await fetch("/add", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ item: name })
-        })
+    const results = [];
+    let errorCount = 0;
 
-        var data = await response.json()
-        results.push({ name: data.item, category: data.category })
+    for (let i = 0; i < items.length; i++) {
+        const name = items[i].querySelector(".name").textContent;
+        const categorySpan = items[i].querySelector(".category");
+
+        try {
+            // Send item to server
+            const response = await fetch("/api/categorize", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ item: name })
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+
+            const data = await response.json();
+            
+            if (data.success) {
+                results.push({ name: data.item, category: data.category });
+                categorySpan.textContent = data.category;
+                categorySpan.style.backgroundColor = categoryColors[data.category] || "#CFD8DC";
+            } else {
+                throw new Error(data.error || "Unknown error");
+            }
+        } catch (error) {
+            console.error(`Error categorizing "${name}":`, error);
+            categorySpan.textContent = "Error";
+            categorySpan.style.backgroundColor = "#FFCDD2";
+            errorCount++;
+        }
     }
 
-    // save results and go to results page
-    localStorage.setItem("listaria_items", JSON.stringify(results))
-    window.location.href = "/results"
+    // Save results and navigate
+    localStorage.setItem("listaria_items", JSON.stringify(results));
+    
+    if (errorCount > 0) {
+        alert(`Categorized ${results.length}/${items.length} items. Some items failed.`);
+    }
+    
+    window.location.href = "/results";
 }
-
-// allow pressing Enter to add item
+// Allow pressing Enter to add item
 document.getElementById("item-input").addEventListener("keypress", function(e) {
     if (e.key === "Enter") {
-        addItem()
+        e.preventDefault();
+        addItem();
     }
-})
+});
+
+// Initialize button state
+updateCategorizeButton();

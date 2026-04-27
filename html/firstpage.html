@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="GrocerySort - Intelligent grocery list organizer. Automatically categorizes items for efficient shopping.">
+    <meta name="theme-color" content="#2d6b7f">
+    <title>GrocerySort - Smart Shopping Lists</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="app-header">
+            <h2 class="app-title">GrocerySort</h2>
+            <p class="app-subtitle">Smart Shopping, Organized Better</p>
+        </header>
+
+        <!-- cart logo -->
+        <div class="cart-icon">
+            <img src="/static/cart.png" alt="shopping cart" loading="lazy">
+        </div>
+
+        <!-- title -->
+        <h1>Create Your<br>Shopping List</h1>
+
+        <!-- input row -->
+        <div class="input-row">
+            <input 
+                id="item-input" 
+                type="text" 
+                placeholder="Add item (e.g., milk, bread, chicken...)" 
+                maxlength="200"
+                autocomplete="off"
+                aria-label="Item input">
+            <button class="add-btn" onclick="addItem()" aria-label="Add item to list">Add +</button>
+        </div>
+
+        <!-- list of items will show up here -->
+        <div id="list-section" aria-label="Shopping items list"></div>
+
+        <!-- categorize button -->
+        <button class="categorize-btn" onclick="categorizeAll()" id="categorize-btn" aria-label="Categorize all items">CATEGORIZE</button>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p>&copy; 2026 GrocerySort. Made with ❤️</p>
+        </footer>
+    </div>
+
+    <script src="/static/first.js"></script>
+</body>
+</html>

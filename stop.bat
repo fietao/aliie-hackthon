@@ -1,7 +1,10 @@
 @echo off
-title Stopping Listaria
-echo Stopping Listaria...
+title Stopping GrocerySort
+echo.
+echo Stopping GrocerySort...
 taskkill /F /IM python.exe >nul 2>&1
-taskkill /F /IM ollama.exe >nul 2>&1
-echo Done! Listaria has been stopped.
+echo.
+echo Done! GrocerySort has been stopped.
+echo.
 pause
+
